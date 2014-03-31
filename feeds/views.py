@@ -4,6 +4,7 @@ import random
 
 from django.contrib.syndication.views import Feed
 from django.views.generic import TemplateView
+from django.utils.feedgenerator import Atom1Feed, Rss201rev2Feed
 from django.core.urlresolvers import reverse
 
 from .models import TestFeed, TestFeedItem
@@ -19,6 +20,11 @@ class Homepage(TemplateView):
 class BaseFeed(Feed):
     title = "A feed"
     description = "A feed description"
+
+    def __call__(self, request, *args, **kwargs):
+        self.feed_type_name = kwargs["feed_type"]
+        self.feed_type = Rss201rev2Feed if self.feed_type_name == "rss" else Atom1Feed
+        return super(BaseFeed, self).__call__(request, *args, **kwargs)
 
     def get_key(self, request, *args, **kwargs):
         raise NotImplementedError()
@@ -56,7 +62,7 @@ class BaseFeed(Feed):
         return item.display_time
 
     def link(self, obj):
-        return reverse("feeds:key", args=[obj.key])
+        return reverse("feeds:key", args=[self.feed_type_name, obj.key])
 
 
 class CookieFeed(BaseFeed):

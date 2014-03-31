@@ -7,9 +7,6 @@ class TestFeed(models.Model):
     key = models.TextField(primary_key=True)
     created = models.DateField(auto_now_add=True)
 
-    def get_absolute_url(self):
-        return reverse("feeds:key", args=[self.key])
-
 
 class TestFeedItem(models.Model):
     feed = models.ForeignKey(TestFeed, related_name="items")
