@@ -1,9 +1,12 @@
-from django.contrib.syndication.views import Feed
-from .models import TestFeed, TestFeedItem
-from django.views.generic import TemplateView
-from django.core.urlresolvers import reverse
 import uuid
 import datetime
+import random
+
+from django.contrib.syndication.views import Feed
+from django.views.generic import TemplateView
+from django.core.urlresolvers import reverse
+
+from .models import TestFeed, TestFeedItem
 
 
 class Homepage(TemplateView):
@@ -29,11 +32,14 @@ class BaseFeed(Feed):
         else:
             last_item = obj.items.latest()
 
-        create_trigger = min(max(int(kwargs.get("time", "30")), 15), 60)
+        trigger_time = kwargs.get("time", "30")
 
-        if (datetime.datetime.now() - last_item.created) > datetime.timedelta(seconds=create_trigger):
+        create_trigger = min(max(int(trigger_time if trigger_time.isdigit() else "30"), 15), 60)
+        created_ago = (datetime.datetime.now() - last_item.created)
+        if created_ago > datetime.timedelta(seconds=create_trigger):
             # Create a new item
-            TestFeedItem.objects.create(feed=obj)
+            random_time = created_ago + datetime.timedelta(seconds=random.randint(1, int(created_ago.total_seconds())))
+            TestFeedItem.objects.create(feed=obj, display_time=random_time)
 
         return obj
 
@@ -47,7 +53,7 @@ class BaseFeed(Feed):
         return item.content
 
     def item_pubdate(self, item):
-        return item.created
+        return item.display_time
 
     def link(self, obj):
         return reverse("feeds:key", args=[obj.key])

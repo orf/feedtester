@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, url
-from .views import KeyFeed, CookieFeed, Homepage
 from django.views.generic import DetailView
+
+from .views import KeyFeed, CookieFeed, Homepage
 from .models import TestFeedItem
-import uuid
+
 
 urlpatterns = patterns('',
                        url('^$', Homepage.as_view(template_name="index.html" )),
