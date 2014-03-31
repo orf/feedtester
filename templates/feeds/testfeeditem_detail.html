@@ -11,7 +11,7 @@
         {{ object.content|linebreaksbr }}
     </p>
 
-    <p>Feed: <a href="{% url "feeds:key" "rss" object.feed_id %}">{{ object.feed_id }}</a> | <a href="{% url "feeds:key" "atom" object.feed_id %}">{{ object.feed_id }}</a> </p>
+    <p>Feed: <a href="{% url "feeds:key" "rss" object.feed_id %}">RSS:{{ object.feed_id }}</a> | <a href="{% url "feeds:key" "atom" object.feed_id %}">Atom:{{ object.feed_id }}</a> </p>
 
 </body>
 </html>
