@@ -1,7 +1,7 @@
 Feed creator
 ============
 
-Feed creator is a simple service that generates persistent updating RSS feeds.
+Feed creator is a simple Django service that generates persistent updating RSS feeds.
 
 ## Usage
 A feed can be accessed by using any string as a key by accessing this url: /feed/KEY. For example: /feed/3aba48e842bf49d086249074a663ba6c

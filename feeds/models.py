@@ -19,7 +19,7 @@ class TestFeedItem(models.Model):
     content = models.TextField(default=lambda: "\n".join(lorem_ipsum.paragraphs(2)))
 
     def get_absolute_url(self):
-        return reverse("feeds:view", args=[self.id])
+        return reverse("view", args=[self.id])
 
     class Meta:
         get_latest_by = "created"
