@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <h1>{{ object.title }} </h1>
+    <p><small>{{ object.created }}</small> </p>
+    <p>
+        {{ object.content|linebreaksbr }}
+    </p>
+
+    <p>Feed: <a href="{% url "feeds:key" object.feed_id %}">{{ object.feed_id }}</a> </p>
+
+</body>
+</html>
