@@ -10,14 +10,14 @@
     </p>
     <h3>Usage:</h3>
     <p>
-        A feed can be accessed by using any string as a key by accessing this url: {% url "key" "KEY" %}. For example: <a href="{% url "key" uuid %}">{% url "key" uuid.hex %}</a>
+        A feed can be accessed by using any string as a key by accessing this url: {% url "feeds:key" "KEY" %}. For example: <a href="{% url "feeds:key" uuid %}">{% url "feeds:key" uuid.hex %}</a>
     </p>
     <p>
-        If you don't want to specify a key you can request <a href="{% url "cookie" %}">{% url "cookie" %}</a>. This will set a cookie which you will need to keep and re-send) with each request.
+        If you don't want to specify a key you can request <a href="{% url "feeds:cookie" %}">{% url "feeds:cookie" %}</a>. This will set a cookie which you will need to keep and re-send) with each request.
     </p>
     <h3>Options</h3>
     <p>
-        By default a new item will be created when the feed is requested, if one hasn't been created in the last 30 seconds. You can pass an integer between 15 and 60 in the time parameter. To create a feed with a new entry every 20 seconds request this URL: <a href="{% url "key" uuid %}?time=20">{% url "key" uuid.hex %}?time=20</a>
+        By default a new item will be created when the feed is requested, if one hasn't been created in the last 30 seconds. You can pass an integer between 15 and 60 in the time parameter. To create a feed with a new entry every 20 seconds request this URL: <a href="{% url "feeds:key" uuid %}?time=20">{% url "feeds:key" uuid.hex %}?time=20</a>
     </p>
 </body>
 </html>
