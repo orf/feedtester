@@ -80,10 +80,13 @@ class BaseFeed(Feed):
         trigger_time = kwargs.get("time", "30")
 
         create_trigger = min(max(int(trigger_time if trigger_time.isdigit() else "30"), 15), 60)
+
+        # Work out how long it has been since we have created a post
         created_ago = (datetime.datetime.now() - last_item.created)
+
         if created_ago > datetime.timedelta(seconds=create_trigger):
-            # Create a new item
-            random_time = created_ago - datetime.timedelta(seconds=random.randint(1, int(self.get_total_seconds(created_ago))))
+            # Create a new item with a time between
+            random_time = created_ago + datetime.timedelta(seconds=random.randint(1, int(self.get_total_seconds(created_ago))))
             TestFeedItem.objects.create(feed=obj, display_time=random_time)
 
         return obj
