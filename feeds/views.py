@@ -83,7 +83,7 @@ class BaseFeed(Feed):
         created_ago = (datetime.datetime.now() - last_item.created)
         if created_ago > datetime.timedelta(seconds=create_trigger):
             # Create a new item
-            random_time = created_ago + datetime.timedelta(seconds=random.randint(1, int(self.get_total_seconds(created_ago))))
+            random_time = created_ago - datetime.timedelta(seconds=random.randint(1, int(self.get_total_seconds(created_ago))))
             TestFeedItem.objects.create(feed=obj, display_time=random_time)
 
         return obj
@@ -100,6 +100,9 @@ class BaseFeed(Feed):
 
     def item_description(self, item):
         return item.content
+
+    def item_link(self, item):
+        return item.get_absolute_url()
 
     def item_pubdate(self, item):
         if self.simulate_issue == "future_dates":
