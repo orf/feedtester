@@ -108,7 +108,7 @@ class BaseFeed(Feed):
         return item.get_absolute_url()
 
     def item_guid(self, item):
-        return item.id
+        return str(item.id)
 
     def item_pubdate(self, item):
         if self.simulate_issue == "future_dates":
