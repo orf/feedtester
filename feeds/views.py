@@ -107,6 +107,9 @@ class BaseFeed(Feed):
     def item_link(self, item):
         return item.get_absolute_url()
 
+    def item_guid(self, item):
+        return item.id
+
     def item_pubdate(self, item):
         if self.simulate_issue == "future_dates":
             if random.randint(1, 2) == 2:
